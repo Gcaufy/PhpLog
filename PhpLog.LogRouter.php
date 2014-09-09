@@ -1,61 +1,22 @@
 
 <?php
 /**
- * CLogRouter class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
-/**
  * CLogRouter manages log routes that record log messages in different media.
  *
  * For example, a file log route {@link CFileLogRoute} records log messages
  * in log files. An email log route {@link CEmailLogRoute} sends log messages
  * to specific email addresses. See {@link CLogRoute} for more details about
  * different log routes.
- *
- * Log routes may be configured in application configuration like following:
- * <pre>
- * array(
- *     'preload'=>array('log'), // preload log component when app starts
- *     'components'=>array(
- *         'log'=>array(
- *             'class'=>'CLogRouter',
- *             'routes'=>array(
- *                 array(
- *                     'class'=>'CFileLogRoute',
- *                     'levels'=>'trace, info',
- *                     'categories'=>'system.*',
- *                 ),
- *                 array(
- *                     'class'=>'CEmailLogRoute',
- *                     'levels'=>'error, warning',
- *                     'emails'=>array('admin@example.com'),
- *                 ),
- *             ),
- *         ),
- *     ),
- * )
- * </pre>
- *
  * You can specify multiple routes with different filtering conditions and different
  * targets, even if the routes are of the same type.
  *
  * @property array $routes The currently initialized routes.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog
+ * @link http://www.madcoder.cn
  */
-//require_once('PhpLog.LogRoute.Db.php');
-//require_once('PhpLog.LogRoute.Email.php');
-//require_once('PhpLog.LogRoute.Web.php');
 require_once('PhpLog.LogRoute.php');
-require_once('PhpLog.LogRoute.File.php');
-
 
 class CLogRouter
 {
@@ -88,13 +49,7 @@ class CLogRouter
 			$router = new $class($this->_phplog, $route);
 			$router->init();
 			$this->_routes[$name]=$router;
-			//var_dump($route);
-			//$route=Yii::createComponent($route);
-			//$route->init();
-			//$this->_routes[$name]=$route;
 		}
-		//Yii::getLogger()->attachEventHandler('onFlush',array($this,'collectLogs'));
-		//Yii::app()->attachEventHandler('onEndRequest',array($this,'processLogs'));
 	}
 
 	/**
@@ -126,7 +81,7 @@ class CLogRouter
 	 */
 	public function collectLogs($dumpLogs)
 	{
-		$logger=$this->_phplog->_logger;
+		$logger=$this->_phplog->getLogger();
 		//$dumpLogs=isset($event->params['dumpLogs']) && $event->params['dumpLogs'];
 		foreach($this->_routes as $route)
 		{

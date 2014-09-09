@@ -1,31 +1,4 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP version 5                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2004 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Original Author <author@example.com>                        |
-// |          Your Name <you@example.com>                                 |
-// +----------------------------------------------------------------------+
-//
-// $Id:$
-/**
- * CLogger class file
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 /**
  * CLogger records log messages in memory.
  *
@@ -43,9 +16,9 @@
  * @property integer $memoryUsage Memory usage of the application (in bytes).
  * @property array $profilingResults The profiling results.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog
+ * @link http://www.madcoder.cn
  */
 class CLogger {
     const LEVEL_TRACE = 'trace';
@@ -220,13 +193,13 @@ class CLogger {
     /**
      * Returns the total time for serving the current request.
      * This method calculates the difference between now and the timestamp
-     * defined by constant YII_BEGIN_TIME.
+     * defined by constant PHPLOG_BEGIN_TIME.
      * To estimate the execution time more accurately, the constant should
      * be defined as early as possible (best at the beginning of the entry script.)
      * @return float the total time for serving the current request.
      */
     public function getExecutionTime() {
-        return microtime(true) - YII_BEGIN_TIME;
+        return microtime(true) - PHPLOG_BEGIN_TIME;
     }
     /**
      * Returns the memory usage of the current application.
@@ -301,7 +274,7 @@ class CLogger {
                         $category,
                         $delta
                     );
-                } else throw new CException(Yii::t('yii', 'CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.', array(
+                } else throw new CException(PhpPhpLog::t('CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.', array(
                     '{token}' => $token
                 )));
             }
@@ -324,7 +297,7 @@ class CLogger {
      * @since 1.1.0
      */
     public function flush($dumpLogs = false) {
-    	$this->_phplog->_router->collectLogs($dumpLogs);
+    	$this->_phplog->getRouter()->collectLogs($dumpLogs);
         /*$this->onFlush(new CEvent($this, array(
             'dumpLogs' => $dumpLogs
         )));*/

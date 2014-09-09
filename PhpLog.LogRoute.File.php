@@ -1,14 +1,5 @@
 <?php
 /**
- * CFileLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
-/**
  * CFileLogRoute records log messages in files.
  *
  * The log files are stored under {@link setLogPath logPath} and the file name
@@ -24,9 +15,9 @@
  * @property integer $maxFileSize Maximum log file size in kilo-bytes (KB). Defaults to 1024 (1MB).
  * @property integer $maxLogFiles Number of files used for rotation. Defaults to 5.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog.LogRoute
+ * @link http://www.madcoder.cn
  */
 class CFileLogRoute extends CLogRoute
 {
@@ -75,7 +66,7 @@ class CFileLogRoute extends CLogRoute
 	{
 		$this->logPath=realpath($value);
 		if($this->logPath===false || !is_dir($this->logPath) || !is_writable($this->logPath))
-			throw new CException(Yii::t('yii','CFileLogRoute.logPath "{path}" does not point to a valid directory. Make sure the directory exists and is writable by the Web server process.',
+			throw new CException(Yii::t('CFileLogRoute.logPath "{path}" does not point to a valid directory. Make sure the directory exists and is writable by the Web server process.',
 				array('{path}'=>$value)));
 	}
 

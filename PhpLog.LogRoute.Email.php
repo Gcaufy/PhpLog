@@ -1,14 +1,5 @@
 <?php
 /**
- * CEmailLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
-/**
  * CEmailLogRoute sends selected log messages to email addresses.
  *
  * The target email addresses may be specified via {@link setEmails emails} property.
@@ -20,9 +11,9 @@
  * @property string $sentFrom Send from address of the email.
  * @property array $headers Additional headers to use when sending an email.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog.LogRoute
+ * @link http://www.madcoder.cn
  */
 class CEmailLogRoute extends CLogRoute
 {
@@ -61,7 +52,7 @@ class CEmailLogRoute extends CLogRoute
 		$message=wordwrap($message,70);
 		$subject=$this->getSubject();
 		if($subject===null)
-			$subject=PhpLog::t('yii','Application Log');
+			$subject=PhpLog::t('Application Log');
 		foreach($this->getEmails() as $email)
 			$this->sendEmail($email,$subject,$message);
 	}

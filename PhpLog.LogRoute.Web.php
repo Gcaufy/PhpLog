@@ -1,22 +1,13 @@
 <?php
 /**
- * CWebLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
-/**
  * CWebLogRoute shows the log content in Web page.
  *
  * The log content can appear either at the end of the current Web page
  * or in FireBug console window (if {@link showInFireBug} is set true).
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog.LogRoute
+ * @link http://www.madcoder.cn
  */
 class CWebLogRoute extends CLogRoute
 {

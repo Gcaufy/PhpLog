@@ -1,10 +1,17 @@
 <?php 
 return array(
+	'enable' => true,
 	'autoDump' => false,
 	'routes'=>array(
 		array(
 			'type'=>'file',
 			'levels'=>'error, warning',
+		),
+		array(
+			'type'=>'saeStorage',
+			'domain' => 'wordpress',
+			'logPath' => 'log',
+			'levels'=>'error',
 		),
 		array(
 			'type'=>'email',
@@ -32,11 +39,20 @@ return array(
 			),
 			'logTableName'=>'sys_log',
 			'levels'=>'error, warning, info',
+			'filter' => array(
+				'prefixSession' => true,
+			),
 			//'enabled' => false,
 		),
-		// // uncomment the following to show log messages on web pages
-		// array(
-		// 	'class'=>'CWebLogRoute',
-		// ),
+
+		array(
+			'type'=>'saeDb',
+			'logTableName'=>'sys_log2',
+			'levels'=>'error, warning, info',
+			'filter' => array(
+				'prefixSession' => true,
+			),
+			//'enabled' => false,
+		),
 	),
 );

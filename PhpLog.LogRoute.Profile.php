@@ -1,14 +1,5 @@
 <?php
 /**
- * CProfileLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
-
-/**
  * CProfileLogRoute displays the profiling results in Web page.
  *
  * The profiling is done by calling {@link YiiBase::beginProfile()} and {@link YiiBase::endProfile()},
@@ -22,9 +13,9 @@
  *
  * @property string $report The type of the profiling report to display. Defaults to 'summary'.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog.LogRoute
+ * @link http://www.madcoder.cn
  */
 class CProfileLogRoute extends CWebLogRoute
 {
@@ -65,7 +56,7 @@ class CProfileLogRoute extends CWebLogRoute
 		if($value==='summary' || $value==='callstack')
 			$this->_report=$value;
 		else
-			throw new Exception(PhpLog::t('yii','CProfileLogRoute.report "{report}" is invalid. Valid values include "summary" and "callstack".',
+			throw new Exception(PhpLog::t('CProfileLogRoute.report "{report}" is invalid. Valid values include "summary" and "callstack".',
 				array('{report}'=>$value)));
 	}
 
@@ -113,7 +104,7 @@ class CProfileLogRoute extends CWebLogRoute
 					$results[$last[4]]=array($token,$delta,count($stack));
 				}
 				else
-					throw new Exception(PhpLog::t('yii','CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.',
+					throw new Exception(PhpLog::t('CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.',
 						array('{token}'=>$token)));
 			}
 		}
@@ -157,7 +148,7 @@ class CProfileLogRoute extends CWebLogRoute
 						$results[$token]=array($token,1,$delta,$delta,$delta);
 				}
 				else
-					throw new Exception(PhpLog::t('yii','CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.',
+					throw new Exception(PhpLog::t('CProfileLogRoute found a mismatching code block "{token}". Make sure the calls to Yii::beginProfile() and Yii::endProfile() be properly nested.',
 						array('{token}'=>$token)));
 			}
 		}

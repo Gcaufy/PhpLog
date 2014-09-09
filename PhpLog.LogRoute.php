@@ -1,12 +1,4 @@
 <?php
-/**
- * CLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 
 /**
  * CLogRoute is the base class for all log route classes.
@@ -24,9 +16,9 @@
  * Level filter and category filter are combinational, i.e., only messages
  * satisfying both filter conditions will they be returned.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog
+ * @link http://www.madcoder.cn
  */
 abstract class CLogRoute
 {
@@ -80,6 +72,10 @@ abstract class CLogRoute
 	 */
 	public function init()
 	{
+		if ($this->filter) {
+			require_once('PhpLog.Logger.Filter.php');
+			$this->filter = new CLogFilter($this->filter === true ? array() : $this->filter);
+		}
 	}
 
 	/**
@@ -107,7 +103,7 @@ abstract class CLogRoute
 		if($processLogs && !empty($this->logs))
 		{
 			if($this->filter!==null)
-				Yii::createComponent($this->filter)->filter($this->logs);
+				$this->filter->filter($this->logs);
 			if($this->logs!==array())
 				$this->processLogs($this->logs);
 			$this->logs=array();
@@ -128,6 +124,6 @@ abstract class CLogRoute
 	abstract protected function processLogs($logs);
 
 	protected function getLogger() {
-		return $this->_phplog->_logger;
+		return $this->_phplog->getLogger();
 	}
 }

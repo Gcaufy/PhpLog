@@ -1,31 +1,4 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP version 5                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2004 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Original Author <author@example.com>                        |
-// |          Your Name <you@example.com>                                 |
-// +----------------------------------------------------------------------+
-//
-// $Id:$
-/**
- * CDbLogRoute class file.
- *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @link http://www.yiiframework.com/
- * @copyright Copyright &copy; 2008-2011 Yii Software LLC
- * @license http://www.yiiframework.com/license/
- */
 /**
  * CDbLogRoute stores log messages in a database table.
  *
@@ -34,9 +7,9 @@
  * application component. If they are not set, a SQLite3 database named 'log-YiiVersion.db' will be created
  * and used under the application runtime directory.
  *
- * @author Qiang Xue <qiang.xue@gmail.com>
- * @package system.logging
- * @since 1.0
+ * @author Qiang Xue <qiang.xue@gmail.com> / Gcaufy <gongweiyue@163.com>
+ * @package PhpLog.LogRoute
+ * @link http://www.madcoder.cn
  */
 class CDbLogRoute extends CLogRoute {
     /**
@@ -63,7 +36,7 @@ class CDbLogRoute extends CLogRoute {
      * In PostgreSQL, it is <code>id SERIAL PRIMARY KEY</code>.
      * @see autoCreateLogTable
      */
-    public $logTableName = 'YiiLog';
+    public $logTableName = 'phplog';
     /**
      * @var boolean whether the log DB table should be automatically created if not exists. Defaults to true.
      * @see logTableName
@@ -78,7 +51,7 @@ class CDbLogRoute extends CLogRoute {
      * This method is invoked after the route is created by the route manager.
      */
     public function init() {
-        parent::init();$this->_db = null;
+        parent::init();
         if ($this->autoCreateLogTable) {
             $db = $this->getDbConnection();
             if(!$db->query("delete from {$this->logTableName} where 0 = 1") && $db->error) {
@@ -93,7 +66,7 @@ class CDbLogRoute extends CLogRoute {
      */
     protected function createLogTable($db, $tableName) {
     	$sql = "
-    	CREATE TABLE `sys_log` (
+    	CREATE TABLE {$this->logTableName} (
 			`id` INT(11) NOT NULL AUTO_INCREMENT,
 			`level` VARCHAR(128) NULL DEFAULT NULL,
 			`category` VARCHAR(128) NULL DEFAULT NULL,
@@ -106,7 +79,7 @@ class CDbLogRoute extends CLogRoute {
 		AUTO_INCREMENT=1;
 		";
 		if(!$db->query($sql) && $db->error) {
-			throw new Exception(PhpLog::t('yii', 'CDbLogRoute.connection get an MYSQL issue "{err}".', 
+			throw new Exception(PhpLog::t('CDbLogRoute.connection get an MYSQL issue "{err}".', 
             		array('{err}' => $db->error)
         	));
         }
@@ -121,7 +94,7 @@ class CDbLogRoute extends CLogRoute {
             $dbconfig = $this->connection;
             $this->_db = @new mysqli($dbconfig['host'], $dbconfig['user'], $dbconfig['password'], $dbconfig['db'], isset($dbconfig['port']) ? $dbconfig['port'] : 3306);
             if(mysqli_connect_errno()){
-            	throw new Exception(PhpLog::t('yii', 'CDbLogRoute.connection get an MYSQL issue "{err}".', 
+            	throw new Exception(PhpLog::t('CDbLogRoute.connection get an MYSQL issue "{err}".', 
             		array('{err}' => mysqli_connect_error(),)
             	));
 			}
