@@ -1,5 +1,5 @@
 <h3>Configuration:</h3>
-<code>
+<pre>
 return array(
 	//'enable' => true,		Default to true, set false disable the log function
 	//'autoFlush' => 10000		Default to 10000, only works when autoDump set to false, when there are 10000 logs then flush them
@@ -65,11 +65,11 @@ return array(
 		),
 	),
 );
-</code>
+</pre>
 
 
 <h3>Example:</h3>
-<code>
+<pre>
 
 PhpLog::log('This is a trace log', 'trace', 'test'); 
 PhpLog::log('This is a warning log', 'warning', 'test'); 
@@ -111,4 +111,4 @@ foreach($arr as $key => $val){
 PhpLog::log('end:TEST-FOREACH', 'profile', 'test'); 
 
 
-</code>
+</pre>
