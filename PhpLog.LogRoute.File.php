@@ -66,7 +66,7 @@ class CFileLogRoute extends CLogRoute
 	{
 		$this->logPath=realpath($value);
 		if($this->logPath===false || !is_dir($this->logPath) || !is_writable($this->logPath))
-			throw new CException(Yii::t('CFileLogRoute.logPath "{path}" does not point to a valid directory. Make sure the directory exists and is writable by the Web server process.',
+			throw new Exception(PhpLog::t('CFileLogRoute.logPath "{path}" does not point to a valid directory. Make sure the directory exists and is writable by the Web server process.',
 				array('{path}'=>$value)));
 	}
 
